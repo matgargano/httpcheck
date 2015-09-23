@@ -8,8 +8,6 @@ use GuzzleHttp\Client;
 class Resource {
 
 	private $client;
-	private $url;
-	private $method;
 
 	public function __construct( Client $client ) {
 
@@ -19,23 +17,14 @@ class Resource {
 
 	}
 
-	private function grab() {
+	public function getStatusCode( $url, $method = 'GET' ) {
 
 		try {
-			return $this->client->request( $this->method, $this->url )->getStatusCode();
+			return $this->client->request( $method, $url )->getStatusCode();
 		} catch ( \Exception $ex ) {
 
 			return $ex->getCode();
 		}
-
-	}
-
-	public function getStatusCode( $url, $method = 'GET' ) {
-
-		$this->url    = $url;
-		$this->method = $method;
-
-		return $this->grab();
 
 
 	}
