@@ -30,7 +30,7 @@ class Resource {
 
 	}
 
-	public function get_status_code( $url, $method = 'GET' ) {
+	public function getStatusCode( $url, $method = 'GET' ) {
 
 		$this->url    = $url;
 		$this->method = $method;
