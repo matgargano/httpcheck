@@ -17,13 +17,15 @@ class Resource {
 
 	}
 
-	public function getStatusCode( $url, $method = 'GET' ) {
+	public function getStatusCode( $url ) {
 
 		try {
-			return $this->client->request( $method, $url )->getStatusCode();
+			return $this->client->head( $url )->getStatusCode();
 		} catch ( \Exception $ex ) {
-
-			return $ex->getCode();
+			if ( method_exists( $ex, 'getCode' ) ) {
+				return $ex->getCode();
+			}
+			throw new \Exception( 'Error: ' . $ex->getMessage() );
 		}
 
 
